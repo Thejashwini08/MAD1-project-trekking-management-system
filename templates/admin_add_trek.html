@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="{{ url_for('admin_treks') }}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to Treks</a>
+<h3 class="mt-2 mb-3">Add New Trek</h3>
+
+<div class="card p-4">
+<form method="POST">
+    <div class="mb-3">
+        <label>Trek Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Location</label>
+        <input type="text" name="location" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Difficulty</label>
+        <select name="difficulty" class="form-select" required>
+            <option value="Easy">Easy</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Hard">Hard</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Duration (Days)</label>
+        <input type="number" name="duration" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Available Slots</label>
+        <input type="number" name="slots" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Start Date</label>
+        <input type="date" name="start_date" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>End Date</label>
+        <input type="date" name="end_date" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary px-4">Save</button>
+</form>
+</div>
+{% endblock %}

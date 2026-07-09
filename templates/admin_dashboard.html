@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-4">Dashboard</h3>
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-signpost-2 fs-2 text-primary"></i>
+            <div class="text-muted">Total Treks</div>
+            <h3>{{ total_treks }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-people fs-2 text-success"></i>
+            <div class="text-muted">Total Users</div>
+            <h3>{{ total_users }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-person-badge fs-2 text-warning"></i>
+            <div class="text-muted">Total Staff</div>
+            <h3>{{ total_staff }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-journal-check fs-2 text-danger"></i>
+            <div class="text-muted">Total Bookings</div>
+            <h3>{{ total_bookings }}</h3>
+        </div>
+    </div>
+</div>
+
+<h5 class="mt-4 mb-3">Recent Bookings</h5>
+<div class="card p-3">
+<table class="table table-borderless mb-0">
+    <thead><tr><th>ID</th><th>User</th><th>Trek</th><th>Date</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for b in recent_bookings %}
+    <tr>
+        <td>{{ b.id }}</td>
+        <td>{{ b.user_name }}</td>
+        <td>{{ b.trek_name }}</td>
+        <td>{{ b.booking_date }}</td>
+        <td>
+            {% if b.status == 'Booked' %}<span class="badge bg-primary">Booked</span>
+            {% elif b.status == 'Cancelled' %}<span class="badge bg-danger">Cancelled</span>
+            {% elif b.status == 'Completed' %}<span class="badge bg-success">Completed</span>
+            {% else %}<span class="badge bg-secondary">{{ b.status }}</span>{% endif %}
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="text-muted text-center py-3">No bookings yet</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

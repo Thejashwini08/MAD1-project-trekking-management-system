@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Search</h3>
+
+<div class="card p-3 mb-3">
+<form method="POST" class="row g-2">
+    <div class="col-auto">
+        <select name="search_type" class="form-select">
+            <option value="treks" {% if search_type=='treks' %}selected{% endif %}>Treks</option>
+            <option value="staff" {% if search_type=='staff' %}selected{% endif %}>Staff</option>
+            <option value="users" {% if search_type=='users' %}selected{% endif %}>Users</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Name or ID">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+    </div>
+</form>
+</div>
+
+<div class="card p-3">
+{% if search_type == 'treks' %}
+<table class="table table-borderless align-middle mb-0">
+    <thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Difficulty</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for r in results %}
+    <tr><td>{{ r.id }}</td><td>{{ r.name }}</td><td>{{ r.location }}</td><td>{{ r.difficulty }}</td><td>{{ r.status }}</td></tr>
+    {% else %}
+    <tr><td colspan="5" class="text-muted text-center py-3">No results</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<table class="table table-borderless align-middle mb-0">
+    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for r in results %}
+    <tr><td>{{ r.id }}</td><td>{{ r.name }}</td><td>{{ r.email }}</td><td>{{ r.status }}</td></tr>
+    {% else %}
+    <tr><td colspan="4" class="text-muted text-center py-3">No results</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+</div>
+{% endblock %}

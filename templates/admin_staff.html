@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Staff Requests</h3>
+
+<div class="card p-3">
+<table class="table table-borderless align-middle mb-0">
+    <thead><tr><th>Staff ID</th><th>Name</th><th>Email</th><th>Contact</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>
+    {% for s in staff %}
+    <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.contact }}</td>
+        <td>
+            {% if s.status == 'Approved' %}<span class="badge bg-success">Approved</span>
+            {% elif s.status == 'Blacklisted' %}<span class="badge bg-danger">Blacklisted</span>
+            {% else %}<span class="badge bg-warning text-dark">Pending</span>{% endif %}
+        </td>
+        <td>
+            {% if s.status != 'Approved' %}
+            <a href="{{ url_for('admin_approve_staff', staff_id=s.id) }}" class="btn btn-sm btn-success">Approve</a>
+            {% endif %}
+            {% if s.status == 'Blacklisted' %}
+            <a href="{{ url_for('admin_unblacklist_staff', staff_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Unblacklist</a>
+            {% else %}
+            <a href="{{ url_for('admin_blacklist_staff', staff_id=s.id) }}" class="btn btn-sm btn-danger">Blacklist</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="text-muted text-center py-3">No staff registered yet</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
