@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-4">My Dashboard</h3>
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-signpost-2 fs-2 text-primary"></i>
+            <div class="text-muted">Assigned Treks</div>
+            <h3>{{ treks|length }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-people fs-2 text-success"></i>
+            <div class="text-muted">Total Participants</div>
+            <h3>{{ total_participants }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center stat-card">
+            <i class="bi bi-door-open fs-2 text-warning"></i>
+            <div class="text-muted">Open Treks</div>
+            <h3>{{ open_treks }}</h3>
+        </div>
+    </div>
+</div>
+
+<h5 class="mt-4 mb-3">My Assigned Treks</h5>
+<div class="card p-3">
+<table class="table table-borderless align-middle mb-0">
+    <thead><tr><th>Trek Name</th><th>Location</th><th>Slots</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>
+    {% for t in treks %}
+    <tr>
+        <td>{{ t.name }}</td>
+        <td>{{ t.location }}</td>
+        <td>{{ t.available_slots }}</td>
+        <td>
+            {% if t.status == 'Open' %}<span class="badge bg-success">Open</span>
+            {% elif t.status == 'Closed' %}<span class="badge bg-secondary">Closed</span>
+            {% elif t.status == 'Completed' %}<span class="badge bg-dark">Completed</span>
+            {% else %}<span class="badge bg-warning text-dark">{{ t.status }}</span>{% endif %}
+        </td>
+        <td><a href="{{ url_for('staff_manage_trek', trek_id=t.id) }}" class="btn btn-sm btn-primary">Manage</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="text-muted text-center py-3">No treks assigned yet</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
