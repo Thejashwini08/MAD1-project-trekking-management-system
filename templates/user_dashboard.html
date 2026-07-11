@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-4">Welcome, {{ session.get('name') }}!</h3>
+
+<h5 class="mb-3">Available Treks</h5>
+<div class="card p-3 mb-4">
+<table class="table table-borderless align-middle mb-0">
+    <thead><tr><th>Name</th><th>Location</th><th>Difficulty</th><th>Duration</th><th>Slots</th><th>Action</th></tr></thead>
+    <tbody>
+    {% for t in treks %}
+    <tr>
+        <td>{{ t.name }}</td>
+        <td>{{ t.location }}</td>
+        <td>{{ t.difficulty }}</td>
+        <td>{{ t.duration }} Days</td>
+        <td>{{ t.available_slots }}</td>
+        <td><a href="{{ url_for('user_trek_details', trek_id=t.id) }}" class="btn btn-sm btn-primary">Book Now</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="text-muted text-center py-3">No treks available right now</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<h5 class="mb-3">My Bookings</h5>
+<div class="card p-3">
+<table class="table table-borderless align-middle mb-0">
+    <thead><tr><th>Trek</th><th>Date</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for b in bookings %}
+    <tr>
+        <td>{{ b.trek_name }}</td>
+        <td>{{ b.booking_date }}</td>
+        <td>
+            {% if b.status == 'Booked' %}<span class="badge bg-primary">Booked</span>
+            {% elif b.status == 'Cancelled' %}<span class="badge bg-danger">Cancelled</span>
+            {% elif b.status == 'Completed' %}<span class="badge bg-success">Completed</span>
+            {% else %}<span class="badge bg-secondary">{{ b.status }}</span>{% endif %}
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3" class="text-muted text-center py-3">No bookings yet</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

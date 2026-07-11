@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">My Profile</h3>
+<div class="card p-4 col-md-5">
+<form method="POST">
+    <div class="mb-3">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ user.name }}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" class="form-control" disabled>
+    </div>
+    <div class="mb-3">
+        <label>Contact</label>
+        <input type="text" name="contact" value="{{ user.contact }}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="{{ url_for('user_browse_treks') }}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to Treks</a>
+
+<div class="card p-4 mt-2">
+    <h3 class="mb-3">{{ trek.name }}</h3>
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <p class="mb-2"><i class="bi bi-geo-alt text-primary"></i> <b>Location:</b> {{ trek.location }}</p>
+    <p class="mb-2"><i class="bi bi-bar-chart text-primary"></i> <b>Difficulty:</b> {{ trek.difficulty }}</p>
+    <p class="mb-2"><i class="bi bi-calendar-range text-primary"></i> <b>Duration:</b> {{ trek.duration }} Days</p>
+    <p class="mb-2"><i class="bi bi-calendar-check text-primary"></i> <b>Start Date:</b> {{ trek.start_date }}</p>
+    <p class="mb-2"><i class="bi bi-calendar-x text-primary"></i> <b>End Date:</b> {{ trek.end_date }}</p>
+    <p class="mb-2"><i class="bi bi-ticket-perforated text-primary"></i> <b>Available Slots:</b> {{ trek.available_slots }}</p>
+    <p class="mb-2"><i class="bi bi-info-circle text-primary"></i> <b>Status:</b> {{ trek.status }}</p>
+    <p class="mb-3"><b>Description:</b> {{ trek.description }}</p>
+
+    <form method="POST">
+        <button type="submit" class="btn btn-primary px-4">Book Now</button>
+    </form>
+</div>
+{% endblock %}
